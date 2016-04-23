@@ -1,0 +1,70 @@
+<div class="jumbotron">
+  <h1>AngularJS Simple Module </h1>
+  <p class="lead">
+    <img src="images/pic_angular.jpg" alt="Fabrizio Torelli"><br>
+    Sample application for testing angular js fast provide.
+  </p>
+  <p><a class="btn btn-lg btn-success" ng-href="#/">Load success!<span class="glyphicon glyphicon-ok"></span></a></p>
+</div>
+
+<div id="ctrl-user" ng-controller="MainCtrl as user">
+  <table class="form-table">
+    <tr>
+      <td colspan="2" class="form-title">Insert User Data : </td>
+    </tr>
+    <tr>
+      <td class="form-label">Name :</td>
+      <td><input ngk-focus type="text" ng-model="user.userData.name"/></td>
+    </tr>
+    <tr>
+      <td class="form-label">Surname :</td>
+      <td><input type="text" ng-model="user.userData.surname"/></td>
+    </tr>
+    <tr>
+      <td class="form-label">Address :</td>
+      <td><input type="text" ng-model="user.userData.address"/></td>
+    </tr>
+    <tr>
+      <td class="form-label">Mobile :</td>
+      <td><input type="text" ng-model="user.userData.mobile"/></td>
+    </tr>
+    <tr>
+      <td class="form-label">Email :</td>
+      <td><input type="text" ng-model="user.userData.email"/></td>
+    </tr>
+    <tr class="form-button-tr">
+      <td colspan="2" style="text-align: center;">
+        <button ng-click="user.reset()">reset</button>&nbsp;
+        <button ng-click="user.add()">add user</button><br/>
+      </td>
+    </tr>
+  </table>
+  <br/>
+  <table class="mytable">
+    <header class="form-title" style="margin-bottom: 10px;">User List :</header>
+    <tbody>
+      <tr class="table-header">
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Address</th>
+        <th>Mobile</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    <tr ng-repeat="aUser in user.list()" class="{{$index%2===1 ? 'hilighted' : ''}}">
+      <td title="Name: {{aUser.name}}">{{aUser.name}}</td>
+      <td title="Surname: {{aUser.surname}}">{{aUser.surname}}</td>
+      <td title="Address: {{aUser.address}}">{{aUser.address}}</td>
+      <td title="Mobile: {{aUser.mobile}}">{{aUser.mobile}}</td>
+      <td title="Email: {{aUser.email}}">{{aUser.email}}</td>
+      <td><span class="delete-button" ng-click="user.remove($index)" title="Remove User" ><img></img></span></td>
+    </tr>
+    <tr style="display: {{user.list().length===0 ? 'block' : 'none'}}; width: 100%;">
+      <td style="width: 100% !important;" colspan="6">No user found!!</td>
+    </tr>
+  </tbody>
+  </table>
+</div>
+<br/>
+<br/>
+<br/>
