@@ -39,7 +39,11 @@
       </tr>
       <tr class="form-tr">
         <td class="form-label" style="vertical-align: top; padding-top: 5px;">Mobile :</td>
-        <td><input name="mobile" type="text" ng-model="user.userData.mobile"/></td>
+        <td><input name="mobile" type="text" ng-model="user.userData.mobile" ng-pattern="/^(\+[\d]{1,5}|0)?[7-9]\d{7,11}$/" />
+          <span ng-messages="userAddForm.mobile.$error" role="alert">
+            <span class="error-box" ng-message="pattern">Please enter a value for the mobile!</span>
+          </span>
+        </td>
       </tr>
       <tr class="form-tr">
         <td class="form-label" style="vertical-align: top; padding-top: 5px;">Email :</td>
