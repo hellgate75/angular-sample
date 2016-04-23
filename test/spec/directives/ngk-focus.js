@@ -8,15 +8,17 @@ describe('Directive: ngkFocus', function() {
   var element,
     scope;
 
-  beforeEach(inject(function($rootScope) {
+  beforeEach(inject(function($rootScope, $compile) {
     scope = $rootScope.$new();
-  }));
-
-  it('should make hidden element visible', inject(function($compile) {
     element = angular.element(
       '<input ngk-focus value="sdada"></input>'
     );
+    angular.element(document.body).append(element);
     element = $compile(element)(scope);
-    //expect(element.is(':active')).toBe(true);
+  }));
+
+  it('should make hidden element visible', inject(function($compile) {
+    var currElement = document.activeElement;
+    expect(element[0]).toBe(currElement);
   }));
 });
