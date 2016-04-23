@@ -16,4 +16,4 @@ Tests and jshint are required before to compile and distribute the app in the fo
 
 Running `grunt karma:test` will run the unit tests with karma.
 running the tests a junit and a cobertura reports have been created  in the `build` folder inside the container folder `tests`.
-Testing frameworks : `karma, jasmine, moche, chai, sinon`
+Testing frameworks : `karma, jasmine, mocha, chai, sinon`
