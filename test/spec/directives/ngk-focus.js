@@ -17,8 +17,8 @@ describe('Directive: ngkFocus', function() {
     element = $compile(element)(scope);
   }));
 
-  it('should make hidden element visible', inject(function($compile) {
+  it('should make hidden element visible', function() {
     var currElement = document.activeElement;
     expect(element[0]).toBe(currElement);
-  }));
+  });
 });
