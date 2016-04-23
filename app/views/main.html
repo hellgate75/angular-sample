@@ -15,17 +15,21 @@
       </tr>
       <tr class="form-tr">
         <td class="form-label" style="vertical-align: top; padding-top: 5px;">Name :</td>
-        <td><input name="name" ngk-focus type="text" ng-model="user.userData.name" required/>
+        <td><input name="name" ngk-focus type="text" ng-model="user.userData.name" required ng-minlength="3" ng-maxlength="40"/>
           <div ng-messages="userAddForm.name.$error" role="alert">
             <div class="error-box" ng-message="required">Please enter a value for the name!</div>
+            <div class="error-box" ng-message="minlength">Please enter a longer value for the name!</div>
+            <div class="error-box" ng-message="maxlength">Please enter a shorter value for the name!</div>
           </div>
         </td>
       </tr>
       <tr class="form-tr">
         <td class="form-label" style="vertical-align: top; padding-top: 5px;">Surname :</td>
-        <td><input name="surname" type="text" ng-model="user.userData.surname" required/>
+        <td><input name="surname" type="text" ng-model="user.userData.surname" required ng-minlength="3" ng-maxlength="25"/>
           <div ng-messages="userAddForm.surname.$error" role="alert">
             <div class="error-box" ng-message="required">Please enter a value for the surname!</div>
+            <div class="error-box" ng-message="minlength">Please enter a longer value for the surname!</div>
+            <div class="error-box" ng-message="maxlength">Please enter a shorter value for the surname!</div>
           </div>
         </td>
       </tr>
@@ -41,7 +45,7 @@
         <td class="form-label" style="vertical-align: top; padding-top: 5px;">Email :</td>
         <td><input name="email" type="text" ng-model="user.userData.email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" required/>
           <div ng-messages="userAddForm.email.$error" role="alert">
-            <div class="error-box error-supplier" ng-message="pattern">Please enter a valid email address!</div>
+            <div class="error-box" ng-message="pattern">Please enter a valid email address!</div>
             <div class="error-box" ng-message="required">Please enter a value for the email address!</div>
           </div>
         </td>
