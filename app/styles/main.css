@@ -8,12 +8,33 @@
 body {
   padding: 0;
 }
-table.form-table > tbody > tr {
+/* Custom classes */
+.error-box {
+  border-radius: 5px;
+  background-color: red !important;
+  color: #FFFFFF;
+  padding: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.error-box.error-supplier {
+  margin-bottom: 0px;
+}
+input {
+  border-radius: 5px;
+}
+input.warning, input.ng-invalid-pattern, input.ng-invalid-required {
+  border-color: red;
+  min-height: 0px;
+}
+button:disabled {
+  opacity: 0.60 !important;
+}
+tr.form-tr {
   min-height:35px;
   max-height:35px;
   height: 35px;
 }
-/* Custom classes */
 .form-title {
   font-weight: bold;
   font-size: 20px;
@@ -24,9 +45,8 @@ table.form-table > tbody > tr {
   padding-right: 10px;
   font-weight: bold;
 }
-tr.form-button-tr > button {
-  margin-top: 30px;
-}
+
+/* list table classes*/
 table.mytable {
   width: 100%;
   border: 0px;

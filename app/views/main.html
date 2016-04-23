@@ -8,37 +8,52 @@
 </div>
 
 <div id="ctrl-user" ng-controller="MainCtrl as user">
-  <table class="form-table">
-    <tr>
-      <td colspan="2" class="form-title">Insert User Data : </td>
-    </tr>
-    <tr>
-      <td class="form-label">Name :</td>
-      <td><input ngk-focus type="text" ng-model="user.userData.name"/></td>
-    </tr>
-    <tr>
-      <td class="form-label">Surname :</td>
-      <td><input type="text" ng-model="user.userData.surname"/></td>
-    </tr>
-    <tr>
-      <td class="form-label">Address :</td>
-      <td><input type="text" ng-model="user.userData.address"/></td>
-    </tr>
-    <tr>
-      <td class="form-label">Mobile :</td>
-      <td><input type="text" ng-model="user.userData.mobile"/></td>
-    </tr>
-    <tr>
-      <td class="form-label">Email :</td>
-      <td><input type="text" ng-model="user.userData.email"/></td>
-    </tr>
-    <tr class="form-button-tr">
-      <td colspan="2" style="text-align: center;">
-        <button ng-click="user.reset()">reset</button>&nbsp;
-        <button ng-click="user.add()">add user</button><br/>
-      </td>
-    </tr>
-  </table>
+  <form name="userAddForm">
+    <table class="form-table">
+      <tr class="form-tr">
+        <td colspan="2" class="form-title">Insert User Data : </td>
+      </tr>
+      <tr class="form-tr">
+        <td class="form-label" style="vertical-align: top; padding-top: 5px;">Name :</td>
+        <td><input name="name" ngk-focus type="text" ng-model="user.userData.name" required/>
+          <div ng-messages="userAddForm.name.$error" role="alert">
+            <div class="error-box" ng-message="required">Please enter a value for the name!</div>
+          </div>
+        </td>
+      </tr>
+      <tr class="form-tr">
+        <td class="form-label" style="vertical-align: top; padding-top: 5px;">Surname :</td>
+        <td><input name="surname" type="text" ng-model="user.userData.surname" required/>
+          <div ng-messages="userAddForm.surname.$error" role="alert">
+            <div class="error-box" ng-message="required">Please enter a value for the surname!</div>
+          </div>
+        </td>
+      </tr>
+      <tr class="form-tr">
+        <td class="form-label" style="vertical-align: top; padding-top: 5px;">Address :</td>
+        <td><input name="address" type="text" ng-model="user.userData.address"/></td>
+      </tr>
+      <tr class="form-tr">
+        <td class="form-label" style="vertical-align: top; padding-top: 5px;">Mobile :</td>
+        <td><input name="mobile" type="text" ng-model="user.userData.mobile"/></td>
+      </tr>
+      <tr class="form-tr">
+        <td class="form-label" style="vertical-align: top; padding-top: 5px;">Email :</td>
+        <td><input name="email" type="text" ng-model="user.userData.email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" required/>
+          <div ng-messages="userAddForm.email.$error" role="alert">
+            <div class="error-box error-supplier" ng-message="pattern">Please enter a valid email address!</div>
+            <div class="error-box" ng-message="required">Please enter a value for the email address!</div>
+          </div>
+        </td>
+      </tr>
+      <tr class="form-tr form-button-tr">
+        <td colspan="2" style="text-align: center;">
+          <button ng-click="user.reset()">reset</button>&nbsp;
+          <button ng-click="user.add()" ng-disabled="!userAddForm.$valid">add user</button><br/>
+        </td>
+      </tr>
+    </table>
+  </form>
   <br/>
   <table class="mytable">
     <header class="form-title" style="margin-bottom: 10px;">User List :</header>
