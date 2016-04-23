@@ -7,22 +7,13 @@
 
 body {
   padding: 0;
+  min-width:800px;
+}
+document, html  {
+  padding: 0;
+  min-width:800px;
 }
 /* Custom classes */
-/*.error-box:after {
-	right: 56%;
-	top: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: relative;
-	pointer-events: none;
-	border-color: rgba(0, 175, 208, 0);
-	border-right-color: red;
-	border-width: 10px;
-	margin-top: -10px;
-}*/
 .error-box {
   border-radius: 5px;
   background-color: red !important;
@@ -35,6 +26,25 @@ body {
   float: right;
   width: 306px;
   top: -2px;
+  padding-bottom: 8px;
+}
+.error-box:after {
+  /*width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 20px 10px 0;
+  border-color: transparent red transparent transparent;
+  -webkit-transform:rotate(360deg)*/
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  margin-top: -17px;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 10px solid red;
+  left: -13px;
+  position: relative;
 }
 .error-box.error-supplier {
   margin-bottom: 0px;
@@ -45,6 +55,7 @@ input {
 input.warning, input.ng-invalid-pattern, input.ng-invalid-required {
   border-color: red;
   min-height: 0px;
+  border-radius: 5px;
 }
 button:disabled {
   opacity: 0.60 !important;
