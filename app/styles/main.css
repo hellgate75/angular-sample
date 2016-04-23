@@ -9,13 +9,32 @@ body {
   padding: 0;
 }
 /* Custom classes */
+/*.error-box:after {
+	right: 56%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: relative;
+	pointer-events: none;
+	border-color: rgba(0, 175, 208, 0);
+	border-right-color: red;
+	border-width: 10px;
+	margin-top: -10px;
+}*/
 .error-box {
   border-radius: 5px;
   background-color: red !important;
   color: #FFFFFF;
   padding: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  /* margin-top: 5px; */
+  /* margin-bottom: 5px; */
+  margin-left: 15px;
+  position: relative;
+  float: right;
+  width: 306px;
+  top: -2px;
 }
 .error-box.error-supplier {
   margin-bottom: 0px;
