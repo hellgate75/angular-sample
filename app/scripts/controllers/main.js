@@ -11,19 +11,23 @@
 angular.module('angularspaApp').controller(
   'MainCtrl', ['$scope', 'Users',
     function($scope, Users) {
+      this.searchText = '';
       this.userData = {
-        "name": "",
-        "surname": "",
-        "address": "",
-        "mobile": "",
-        "email": "",
+        'name': '',
+        'surname': '',
+        'address': '',
+        'mobile': '',
+        'email': '',
       };
       this.reset = function() {
-        this.userData.name = "";
-        this.userData.surname = "";
-        this.userData.address = "";
-        this.userData.mobile = "";
-        this.userData.email = "";
+        this.userData.name = '';
+        this.userData.surname = '';
+        this.userData.address = '';
+        this.userData.mobile = '';
+        this.userData.email = '';
+      };
+      this.resetSearch = function() {
+        this.searchText = '';
       };
       this.list = function() {
         return Users.userList;
@@ -34,6 +38,6 @@ angular.module('angularspaApp').controller(
       };
       this.remove = function(index) {
         Users.remove(index);
-      }
+      };
     }
   ]);

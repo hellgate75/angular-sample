@@ -18,7 +18,7 @@ module.exports = function(grunt) {
     ngtemplates: 'grunt-angular-templates',
     cdnify: 'grunt-google-cdn'
   });
-
+  grunt.loadNpmTasks('grunt-json-server');
   // Configurable paths for the application
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
@@ -26,12 +26,14 @@ module.exports = function(grunt) {
     dist: 'build/' + (require('./bower.json').name || 'angularspa'),
     base: 'build'
   };
+  var jsCfg = grunt.file.readJSON('json-server.json');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     // Project settings
     appConfig: appConfig,
+    jsonserverConfig: jsCfg,
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -154,7 +156,7 @@ module.exports = function(grunt) {
       },
       all: {
         src: [
-          'Gruntfile.js',
+          //'Gruntfile.js',
           '<%= appConfig.app %>/scripts/{,*/}*.js'
         ]
       },
@@ -170,11 +172,12 @@ module.exports = function(grunt) {
     jscs: {
       options: {
         config: '.jscsrc',
-        verbose: true
+        verbose: true,
+        excludeFiles: ['Gruntfile.js', 'test/spec/services/users.js']
       },
       all: {
         src: [
-          'Gruntfile.js',
+          //'Gruntfile.js',
           '<%= appConfig.app %>/scripts/{,*/}*.js'
         ]
       },
@@ -303,33 +306,6 @@ module.exports = function(grunt) {
         }
       }
     },
-
-    // The following *-min tasks will produce minified files in the dist folder
-    // By default, your `index.html`'s <!-- Usemin block --> will take care of
-    // minification. These next options are pre-configured if you do not wish
-    // to use the Usemin blocks.
-    // cssmin: {
-    //   dist: {
-    //     files: {
-    //       '<%= appConfig.dist %>/styles/main.css': [
-    //         '.tmp/styles/{,*/}*.css'
-    //       ]
-    //     }
-    //   }
-    // },
-    // uglify: {
-    //   dist: {
-    //     files: {
-    //       '<%= appConfig.dist %>/scripts/scripts.js': [
-    //         '<%= appConfig.dist %>/scripts/scripts.js'
-    //       ]
-    //     }
-    //   }
-    // },
-    // concat: {
-    //   dist: {}
-    // },
-
     imagemin: {
       dist: {
         files: [{
@@ -435,12 +411,32 @@ module.exports = function(grunt) {
         src: '{,*/}*.css'
       }
     },
+    json_server: {
+      options: {
+        port: '<%= jsonserverConfig.port %>',
+        hostname: '<%= jsonserverConfig.hostname %>',
+        db: '<%= jsonserverConfig.database %>',
+      },
+      watch: {
+        port: '<%= jsonserverConfig.port %>',
+        hostname: '<%= jsonserverConfig.hostname %>',
+        db: '<%= jsonserverConfig.database %>'
+      }
+    },
 
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
         'copy:styles'
       ],
+      jsonserver: {
+        tasks: [
+          'json_server'
+        ],
+        options: {
+          logConcurrentOutput: true
+        }
+      },
       test: [
         'copy:styles'
       ],
@@ -451,6 +447,18 @@ module.exports = function(grunt) {
       ]
     },
 
+    // // Run some tasks in parallel to speed up build process
+    // jsonserverparallel: {
+    //   server: {
+    //     tasks: [
+    //       'json_server',
+    //       'watch'
+    //     ],
+    //     options: {
+    //       logConcurrentOutput: true
+    //     }
+    //   }
+    // },
     // Test settings
     karma: {
       unit: {
@@ -473,6 +481,7 @@ module.exports = function(grunt) {
         'concurrent:server',
         'postcss:server',
         'connect:livereload',
+        'concurrent:jsonserver',
         'watch'
       ]);
     });

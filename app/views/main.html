@@ -67,6 +67,10 @@
     <header class="form-title" style="margin-bottom: 10px;">User List :</header>
     <tbody>
       <tr class="table-header">
+        <td>Filter :</td>
+        <td colspan="5"><input name="email" type="text" ng-model="searchText"/>&nbsp;<button ng-click="user.resetSearch()">reset</button></td>
+      </tr>
+      <tr class="table-header">
         <th>Name</th>
         <th>Surname</th>
         <th>Address</th>
@@ -74,7 +78,7 @@
         <th>Email</th>
         <th>Actions</th>
       </tr>
-    <tr ng-repeat="aUser in user.list()" class="{{$index%2===1 ? 'hilighted' : ''}}">
+    <tr ng-repeat="aUser in user.list() | bySurnameAndName:searchText">
       <td title="Name: {{aUser.name}}">{{aUser.name}}</td>
       <td title="Surname: {{aUser.surname}}">{{aUser.surname}}</td>
       <td title="Address: {{aUser.address}}">{{aUser.address}}</td>
