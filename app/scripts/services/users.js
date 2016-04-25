@@ -23,13 +23,10 @@ angular.module('angularspaApp')
       dataService.load();
     };
     factoryObj.add = function(userData) {
-      this.userList.push(JSON.parse(JSON.stringify(userData)));
-      //dataService.userList.push(JSON.parse(JSON.stringify(userData)));
-      //ataService.save();
+      dataService.save(JSON.parse(JSON.stringify(userData)));
     };
-    factoryObj.remove = function(index) {
-      this.userList.splice(index, 1);
-      //dataService.userList.plice(index, 1);
+    factoryObj.remove = function(id) {
+      dataService.delete(id);
     };
     return factoryObj;
   }]);

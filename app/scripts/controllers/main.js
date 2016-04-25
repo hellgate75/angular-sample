@@ -13,6 +13,7 @@ angular.module('angularspaApp').controller(
     function($scope, Users) {
       this.searchText = '';
       this.userData = {
+        'id': 0,
         'name': '',
         'surname': '',
         'address': '',
@@ -20,6 +21,7 @@ angular.module('angularspaApp').controller(
         'email': '',
       };
       this.reset = function() {
+        this.userData.id = 0;
         this.userData.name = '';
         this.userData.surname = '';
         this.userData.address = '';
@@ -30,7 +32,7 @@ angular.module('angularspaApp').controller(
         this.searchText = '';
       };
       this.list = function() {
-        return Users.userList;
+        return Users.list();
       };
       this.add = function() {
         Users.add(JSON.parse(JSON.stringify(this.userData)));

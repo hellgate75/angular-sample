@@ -8,12 +8,6 @@
  *
  * Main module of the application.
  */
-// const low = require('lowdb');
-// const storage = require('lowdb/file-sync');
-//
-// const db = low('users.json', {
-//   storage
-// });
 
 angular
   .module('angularspaApp', [

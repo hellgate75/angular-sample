@@ -84,7 +84,7 @@
       <td title="Address: {{aUser.address}}">{{aUser.address}}</td>
       <td title="Mobile: {{aUser.mobile}}">{{aUser.mobile}}</td>
       <td title="Email: {{aUser.email}}">{{aUser.email}}</td>
-      <td><span class="delete-button" ng-click="user.remove($index)" title="Remove User" ><img></img></span></td>
+      <td><span class="delete-button" ng-click="user.remove(aUser.id)" title="Remove User" ><img></img></span></td>
     </tr>
     <tr style="display: {{user.list().length===0 ? 'block' : 'none'}}; width: 100%;">
       <td style="width: 100% !important;" colspan="6">No user found!!</td>

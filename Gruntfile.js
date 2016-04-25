@@ -18,7 +18,7 @@ module.exports = function(grunt) {
     ngtemplates: 'grunt-angular-templates',
     cdnify: 'grunt-google-cdn'
   });
-  grunt.loadNpmTasks('grunt-json-server');
+  grunt.loadNpmTasks('grunt-run-grunt');
   // Configurable paths for the application
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
@@ -26,14 +26,12 @@ module.exports = function(grunt) {
     dist: 'build/' + (require('./bower.json').name || 'angularspa'),
     base: 'build'
   };
-  var jsCfg = grunt.file.readJSON('json-server.json');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     // Project settings
     appConfig: appConfig,
-    jsonserverConfig: jsCfg,
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -70,33 +68,6 @@ module.exports = function(grunt) {
         ]
       }
     },
-    // concat: {
-    //   options: {
-    //     // define a string to put between each file in the concatenated output
-    //     separator: ';'
-    //   },
-    //   dist: {
-    //     // the files to concatenate
-    //     src: ['app/**/*.js', 'app/scripts/**/*.js',
-    //       'app/scripts/controllers/**/*.js',
-    //       'app/scripts/directives/**/*.js',
-    //       'app/scripts/services/**/*.js'
-    //     ],
-    //     // the location of the resulting JS file
-    //     dest: 'build/app/<%= pkg.name %>.js'
-    //   }
-    // },
-    // uglify: {
-    //   options: {
-    //     // the banner is inserted at the top of the output
-    //     banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
-    //   },
-    //   dist: {
-    //     files: {
-    //       'build/app/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
-    //     }
-    //   }
-    // },
     // The actual grunt server settings
     connect: {
       options: {
@@ -411,27 +382,33 @@ module.exports = function(grunt) {
         src: '{,*/}*.css'
       }
     },
-    json_server: {
+    run_grunt: {
       options: {
-        port: '<%= jsonserverConfig.port %>',
-        hostname: '<%= jsonserverConfig.hostname %>',
-        db: '<%= jsonserverConfig.database %>',
+        minimumFiles: 1
       },
-      watch: {
-        port: '<%= jsonserverConfig.port %>',
-        hostname: '<%= jsonserverConfig.hostname %>',
-        db: '<%= jsonserverConfig.database %>'
+      simple_target: {
+        options: {
+          log: true,
+          stack: true,
+          force: true,
+          process: function(res) {
+            if (res.fail) {
+              grunt.log.writeln("Unable to run Json Server ...");
+            }
+          }
+        },
+        src: ['GruntfileJsonServer.js']
       }
     },
-
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
         'copy:styles'
       ],
-      jsonserver: {
+      serve: {
         tasks: [
-          'json_server'
+          'run_grunt',
+          'watch'
         ],
         options: {
           logConcurrentOutput: true
@@ -446,19 +423,6 @@ module.exports = function(grunt) {
         'svgmin'
       ]
     },
-
-    // // Run some tasks in parallel to speed up build process
-    // jsonserverparallel: {
-    //   server: {
-    //     tasks: [
-    //       'json_server',
-    //       'watch'
-    //     ],
-    //     options: {
-    //       logConcurrentOutput: true
-    //     }
-    //   }
-    // },
     // Test settings
     karma: {
       unit: {
@@ -467,7 +431,6 @@ module.exports = function(grunt) {
       }
     }
   });
-
 
   grunt.registerTask('serve', 'Compile then start a connect web server',
     function(target) {
@@ -481,8 +444,7 @@ module.exports = function(grunt) {
         'concurrent:server',
         'postcss:server',
         'connect:livereload',
-        'concurrent:jsonserver',
-        'watch'
+        'concurrent:serve'
       ]);
     });
 
