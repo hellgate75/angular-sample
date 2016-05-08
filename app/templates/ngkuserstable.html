@@ -1,0 +1,28 @@
+<table class="mytable">
+  <header class="form-title" style="margin-bottom: 10px;">User List (Directive Table) :</header>
+  <tbody>
+    <tr class="table-header">
+      <td>Filter :</td>
+      <td colspan="5"><input name="searchUserTab" type="text" ng-model="searchText"/>&nbsp;<button ng-click="resetSearchFnc()">reset</button></td>
+    </tr>
+    <tr class="table-header">
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Address</th>
+      <th>Mobile</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  <tr ng-repeat="aUser in usersList | bySurnameAndName:searchText">
+    <td title="Name: {{aUser.name}}">{{aUser.name}}</td>
+    <td title="Surname: {{aUser.surname}}">{{aUser.surname}}</td>
+    <td title="Address: {{aUser.address}}">{{aUser.address}}</td>
+    <td title="Mobile: {{aUser.mobile}}">{{aUser.mobile}}</td>
+    <td title="Email: {{aUser.email}}">{{aUser.email}}</td>
+    <td><span class="delete-button" ng-click="deleteUserFnc(aUser.id)" title="Remove User" ><img></img></span></td>
+  </tr>
+  <tr style="display: {{usersList.length===0 ? 'block' : 'none'}}; width: 100%;">
+    <td style="width: 100% !important;" colspan="6">No user found!!</td>
+  </tr>
+</tbody>
+</table>

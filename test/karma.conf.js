@@ -64,11 +64,12 @@ module.exports = function(config) {
       'karma-phantomjs-launcher',
       'karma-jasmine',
       'karma-junit-reporter',
+      'karma-html-reporter',
       'karma-coverage',
       'karma-mocha',
       'karma-chai-sinon'
     ],
-    reporters: ['progress', 'junit', 'coverage'],
+    reporters: ['progress', 'html', 'junit', 'coverage'],
     junitReporter: {
       outputDir: 'build/tests/junit-report',
       outputFile: undefined,
@@ -82,6 +83,18 @@ module.exports = function(config) {
       // classNameFormatter: undefined // function (browser, result) to customize the classname attribute in xml testcase element,
       // properties: {} // key value pair of properties to add to the <properties> section of the report
 
+    },
+    htmlReporter: {
+      outputDir: 'build/tests/karma-html', // where to put the reports
+      templatePath: null, // set if you moved jasmine_template.html
+      focusOnFailures: true, // reports show failures on start
+      namedFiles: false, // name files instead of creating sub-directories
+      pageTitle: 'AngularSPA Unit Test Results', // page title for reports; browser info by default
+      urlFriendlyName: true, // simply replaces spaces with _ for files/dirs
+      reportName: 'unit-test', // report summary filename; browser info by default
+      // experimental
+      preserveDescribeNesting: false, // folded suites stay folded
+      foldAll: false, // reports start folded (only with preserveDescribeNesting)
     },
     preprocessors: {
       // source files, that you wanna generate coverage for

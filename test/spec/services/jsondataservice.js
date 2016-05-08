@@ -1,17 +1,18 @@
 'use strict';
 
-describe('Service: jsonDataService', function () {
+describe('Service: jsonDataService', function() {
 
   // load the service's module
   beforeEach(module('angularspaApp'));
+  // beforeEach(module('angularspaMocks'));
 
   // instantiate service
   var jsonDataService;
-  beforeEach(inject(function (_jsonDataService_) {
+  beforeEach(inject(function(_jsonDataService_) {
     jsonDataService = _jsonDataService_;
   }));
 
-  it('should do something', function () {
+  it('should do something', function() {
     expect(!!jsonDataService).toBe(true);
   });
 

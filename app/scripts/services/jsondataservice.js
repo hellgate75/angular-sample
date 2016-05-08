@@ -20,12 +20,13 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
         this.lastId = 0;
       } else {
         this.userList.forEach(function(userData) {
-          if (userData.id > this.lastId)
+          if (userData.id > this.lastId) {
             this.lastId = userData.id;
+          }
           if (userData.mobile) {
-            userData.mobile = "" + userData.mobile;
+            userData.mobile = '' + userData.mobile;
             if (userData.mobile[0] !== '0' && userData.mobile.length) {
-              userData.mobile = "+" + userData.mobile;
+              userData.mobile = '+' + userData.mobile;
             }
           }
         }.bind(this));
@@ -100,6 +101,7 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
         this.$http(req1).success(
           function() {
             //this.userList = data.users;
+            this.userList.push(user);
             console.log('Saving user ' + JSON.stringify(user) +
               ' successful!!');
           }.bind(this)).error(function() {
@@ -168,8 +170,9 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
       }.bind(this));
     } else if (user) {
       var index = this.userList.indexOf(user);
-      if (!!index)
+      if (!!index) {
         delete this.userList[index];
+      }
     }
   };
   factory.load();

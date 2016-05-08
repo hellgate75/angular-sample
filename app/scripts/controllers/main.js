@@ -34,6 +34,9 @@ angular.module('angularspaApp').controller(
       this.list = function() {
         return Users.list();
       };
+      this.setData = function(data) {
+        this.userData = data;
+      };
       this.add = function() {
         Users.add(JSON.parse(JSON.stringify(this.userData)));
         this.reset();
