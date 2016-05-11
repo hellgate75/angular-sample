@@ -93,6 +93,12 @@
   </table>
   <br/>
   <br/>
+  <ngk-message-box box-title="Messages" message-delay="12000" >
+    <ngk-message-tab message-id="savedMessage" message-title="User saved" message-type="info">User saved successful!!</ngk-message-tab>
+    <ngk-message-tab message-id="removedMessage" message-title="User removed" message-type="warn">User removed successful!!</ngk-message-tab>
+    <ngk-message-tab message-id="errorMessage" message-title="Error occured" message-type="error">Operation Unsuccessful!!</ngk-message-tab>
+  </ngk-message-box>
+  <br/>
   <ngk-users-table users="user.list()" onReset="user.resetSearch" onDelete="user.remove" onRreload="user.reload"></ngk-users-table>
 </div>
 <br/>
