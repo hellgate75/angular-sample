@@ -51,7 +51,9 @@ module.exports = function(grunt) {
         tasks: ['newer:jshint:test', 'newer:jscs:test', 'karma']
       },
       styles: {
-        files: ['<%= appConfig.app %>/styles/{,*/}*.css'],
+        files: ['<%= appConfig.app %>/styles/{,*/}*.css',
+          '<%= appConfig.app %>/styles/{,*/}*.less'
+        ],
         tasks: ['newer:copy:styles', 'postcss']
       },
       gruntfile: {
@@ -64,6 +66,7 @@ module.exports = function(grunt) {
         files: [
           '<%= appConfig.app %>/{,*/}*.html',
           '.tmp/styles/{,*/}*.css',
+          '.tmp/styles/{,*/}*.less',
           '<%= appConfig.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
