@@ -6,6 +6,7 @@
     <tr class="form-tr">
       <td class="form-label" style="vertical-align: top; padding-top: 5px;">Name :</td>
       <td><input name="name" ngk-focus type="text" ng-model="$ctrl.userData.name" required ng-minlength="3" ng-maxlength="40"/>
+      </td><td>
         <span ng-messages="userAddForm.name.$error" role="alert">
           <span class="error-box" ng-message="required">Please enter a value for the name!</span>
           <span class="error-box" ng-message="minlength">Please enter a longer value for the name!</span>
@@ -16,6 +17,7 @@
     <tr class="form-tr">
       <td class="form-label" style="vertical-align: top; padding-top: 5px;">Surname :</td>
       <td><input name="surname" type="text" ng-model="$ctrl.userData.surname" required ng-minlength="3" ng-maxlength="25"/>
+      </td><td>
         <span ng-messages="userAddForm.surname.$error" role="alert">
           <span class="error-box" ng-message="required">Please enter a value for the surname!</span>
           <span class="error-box" ng-message="minlength">Please enter a longer value for the surname!</span>
@@ -25,11 +27,14 @@
     </tr>
     <tr class="form-tr">
       <td class="form-label" style="vertical-align: top; padding-top: 5px;">Address :</td>
-      <td><input name="address" type="text" ng-model="$ctrl.userData.address"/></td>
+      <td><input name="address" type="text" ng-model="$ctrl.userData.address"/>
+      </td><td>
+      </td>
     </tr>
     <tr class="form-tr">
       <td class="form-label" style="vertical-align: top; padding-top: 5px;">Mobile :</td>
       <td><input name="mobile" type="text" ng-model="$ctrl.userData.mobile" ng-pattern="/^(\+[\d]{1,5}|0)?[7-9]\d{7,11}$/" />
+      </td><td>
         <span ng-messages="userAddForm.mobile.$error" role="alert">
           <span class="error-box" ng-message="pattern">Please enter a value for the mobile!</span>
         </span>
@@ -38,6 +43,7 @@
     <tr class="form-tr">
       <td class="form-label" style="vertical-align: top; padding-top: 5px;">Email :</td>
       <td><input name="email" type="text" ng-model="$ctrl.userData.email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" required/>
+      </td><td>
         <span ng-messages="userAddForm.email.$error" role="alert">
           <span class="error-box" ng-message="pattern">Please enter a valid email address!</span>
           <span class="error-box" ng-message="required">Please enter a value for the email address!</span>
@@ -48,6 +54,7 @@
       <td colspan="2" style="text-align: center;">
         <button ng-click="reset()">reset</button>&nbsp;
         <button ng-click="add()" ng-disabled="!userAddForm.$valid">add user</button><br/>
+      </td><td>
       </td>
     </tr>
   </table>
