@@ -63,6 +63,13 @@
     </table>
   </form>
   <br/>
+  <ngk-message-box box-title="Operation Status" message-delay="12000" ng-if="user.showMessages()">
+    <ngk-message-tab message-id="savedMessage" message-title="User saved" message-type="info">User saved successful!!</ngk-message-tab>
+    <ngk-message-tab message-id="removedMessage" message-title="User removed" message-type="warn">User removed successful!!</ngk-message-tab>
+    <ngk-message-tab message-id="errorMessage" message-title="Error occured" message-type="error">Operation Unsuccessful!!</ngk-message-tab>
+  </ngk-message-box>
+  <br/>
+  <br/>
   <table class="mytable">
     <header class="form-title" style="margin-bottom: 10px;">User List :</header>
     <tbody>
@@ -93,13 +100,7 @@
   </table>
   <br/>
   <br/>
-  <ngk-message-box box-title="Messages" message-delay="12000" >
-    <ngk-message-tab message-id="savedMessage" message-title="User saved" message-type="info">User saved successful!!</ngk-message-tab>
-    <ngk-message-tab message-id="removedMessage" message-title="User removed" message-type="warn">User removed successful!!</ngk-message-tab>
-    <ngk-message-tab message-id="errorMessage" message-title="Error occured" message-type="error">Operation Unsuccessful!!</ngk-message-tab>
-  </ngk-message-box>
-  <br/>
-  <ngk-users-table users="user.list()" onReset="user.resetSearch" onDelete="user.remove" onRreload="user.reload"></ngk-users-table>
+  <ngk-users-table users="user.list()" timeout="30000"></ngk-users-table>
 </div>
 <br/>
 <br/>

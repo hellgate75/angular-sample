@@ -19,6 +19,7 @@ document, html  {
   background-color: #F0F0F0;
   border: 1px solid #E0E0E0;
   border-radius: 2px;
+  padding-left: 10px;
 }
 .singleMessage.ng-hide {
   display: none;
@@ -28,6 +29,7 @@ document, html  {
   border: 1px solid #E0E0E0;
   border-radius: 2px;
   margin-bottom: 0px;
+  padding-left: 10px;
 }
 .singleMessage.info .tab-content {
   border-bottom: 1px solid rgba(60, 118, 61, 0.8);

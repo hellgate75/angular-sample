@@ -7,22 +7,33 @@
  * # ngkUsersTable
  */
 angular.module('angularspaApp')
-  .directive('ngkUsersTable', ['$interval', '$log', function($interval, $log) {
+  .directive('ngkUsersTable', ['$interval', '$log', function(
+    $interval, $log) {
     return {
       templateUrl: 'templates/ngkuserstable.html',
       restrict: 'E',
       transclude: true,
       scope: {
         usersList: '=users',
-        resetSearchFnc: '&onReset',
-        deleteUserFnc: '&onDelete',
-        reloadUsersFnc: '&onReload',
+        reloadTimeout: '=timeout',
       },
-      link: function postLink(scope, element, attrs) {
+      link: function postLink(scope, element, attrs, controller) {
         var timeoutId;
-        var updateUsersTable = function() {
+        scope.list = function() {
+          return scope.$parent.list();
+        };
+        scope.removeUser = function(userId) {
+          scope.$parent.remove(userId);
+        };
+        scope.resetUserSearch = function() {
+          scope.searchText = '';
+        };
+        var reloadUsersTable = function() {
           $log.info('reloading users list from service now ...');
-          scope.reloadUsersFnc();
+          scope.$parent.reload();
+        };
+        var updateUsersTable = function() {
+          $log.info('updating the table now ...');
         };
         scope.$watch(attrs.users, function() {
           updateUsersTable(); // update the DOM table
@@ -31,8 +42,8 @@ angular.module('angularspaApp')
           $interval.cancel(timeoutId);
         });
         timeoutId = $interval(function() {
-          updateUsersTable(); // update the DOM table
-        }, 5000);
+          reloadUsersTable(); // reload the user table
+        }, parseInt(scope.reloadTimeout));
       }
     };
   }]);

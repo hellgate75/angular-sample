@@ -70,9 +70,10 @@ angular.module('angularspaApp')
           return $scope.$parent.messageActivationFlags;
         };
         this.startUp = function() {
-          if (!$scope.element || started) {
+          if (started) {
             return;
           }
+          $scope.messagesVisible = false;
           started = true;
           $scope.$watch(activationWatchList, function() {
             var activationList = $scope.$parent.messageActivation;
@@ -91,22 +92,22 @@ angular.module('angularspaApp')
               }
             }
             if (visible) {
-              $scope.clearMessageList();
+              $scope.messagesVisible = true;
             }
           });
-          $scope.element.on('$destroy', function() {
+          $scope.$on('$destroy', function() {
             $interval.cancel(timeoutId);
           });
           timeoutId = $interval(function() {
-            $scope.hideMessages(); // update the DOM table
+            if ($scope.messagesVisible) {
+              $scope.messagesVisible = false;
+              $scope.hideMessages(); // update the DOM table
+              $scope.clearMessageList(); //reset flags
+            }
           }, parseInt($scope.messageDelay));
 
         };
       }],
-      link: function postLink(scope, element, attrs, MessageBoxCtrl) {
-        scope.element = element;
-      },
-
       templateUrl: 'templates/ngkmessagebox.html'
     };
   }])

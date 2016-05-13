@@ -11,7 +11,7 @@
 angular.module('angularspaApp').controller(
   'MainCtrl', ['$scope', 'Users',
     function($scope, Users) {
-      this.searchText = '';
+      $scope.searchText = '';
       $scope.messageActivation = {
         'savedMessage': false,
         'removedMessage': false,
@@ -32,7 +32,7 @@ angular.module('angularspaApp').controller(
         }
         var current = [];
         angular.forEach($scope.messageActivation,
-          function(value, key, object) {
+          function(value) {
             this.push(value);
           }, current);
         if (!angular.equals($scope.messageActivationFlags, current)) {
@@ -47,14 +47,21 @@ angular.module('angularspaApp').controller(
         this.userData.mobile = '';
         this.userData.email = '';
       };
-      this.resetSearch = function() {
-        this.searchText = '';
+      $scope.resetSearch = this.resetSearch = function() {
+        $scope.searchText = '';
       };
-      this.list = function() {
+      $scope.list = this.list = function() {
         return Users.list();
+      };
+      $scope.reload = this.reload = function() {
+        Users.reload();
       };
       this.setData = function(data) {
         this.userData = data;
+      };
+      this.showMessages = function() {
+        return $scope.messageActivation.savedMessage || $scope.messageActivation
+          .removedMessage || $scope.messageActivation.errorMessage;
       };
       this.add = function() {
         Users.add(JSON.parse(JSON.stringify(this.userData)));
@@ -62,7 +69,7 @@ angular.module('angularspaApp').controller(
         $scope.messageActivation.savedMessage = true;
         $scope.updateFlags();
       };
-      this.remove = function(index) {
+      $scope.remove = this.remove = function(index) {
         Users.remove(index);
         $scope.messageActivation.removedMessage = true;
         $scope.updateFlags();
