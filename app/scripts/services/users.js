@@ -5,7 +5,9 @@
  * @name angularspaApp.Users
  * @description
  * # Users
- * Factory in the angularspaApp.
+ * Factory service wrapper for the jsonDataService service, exposing the following behaviours :
+ * list, reload, add/update, remove users into or from the JSON Server
+ * No error handling yet implemented.
  */
 angular.module('angularspaApp')
   .factory('Users', ['jsonDataService', function(dataService) {

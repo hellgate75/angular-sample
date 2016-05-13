@@ -5,6 +5,11 @@
  * @name angularspaApp.directive:ngkUsersTable
  * @description
  * # ngkUsersTable
+ * This directive is a transcluded directive that show a table of users and inherit from the parent controller some functions :
+ * list : list of users to visualize
+ * remove : function to remove a user by user id
+ * This directive provide a local filter to search in the user list behalf the parent controller  features.
+ * The scope is isolated.
  */
 angular.module('angularspaApp')
   .directive('ngkUsersTable', ['$interval', '$log', function(
@@ -17,7 +22,7 @@ angular.module('angularspaApp')
         usersList: '=users',
         reloadTimeout: '=timeout',
       },
-      link: function postLink(scope, element, attrs, controller) {
+      link: function postLink(scope, element, attrs) {
         var timeoutId;
         scope.list = function() {
           return scope.$parent.list();

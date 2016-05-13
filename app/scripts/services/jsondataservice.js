@@ -5,7 +5,12 @@
  * @name angularspaApp.jsonDataService
  * @description
  * # jsonDataService
- * Service in the angularspaApp.
+ * Service that provides the communication with the JSONServer instance and expose the following behaviours :
+ * load : load the JSON user's list from the server
+ * save : add or upddate a user JSON to the server
+ * saveAll : add or update all users JSON to the server
+ * delete : remove a users JSON to the server
+ * No error handling yet implemented.
  */
 angular.module('angularspaApp').factory('jsonDataService', function($http) {
   var factory = {};
@@ -33,8 +38,14 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
       }
     }.bind(this)).error(function() {
       this.userList = [];
-      console.log('Error loading the json list ...');
+      this.logError('Error loading the json list ...');
     }.bind(this));
+  };
+  factory.logError = function() {
+    //TODO: introduce the error handling to advice the UI
+  };
+  factory.logSuccess = function() {
+    //TODO: introduce the success handling to advice the UI
   };
   factory.save = function(userData) {
     this.saving = true;
@@ -54,11 +65,11 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
           //this.userList = data.users;
           this.userList.push(userData);
           this.load();
-          console.log('Saving user ' + JSON.stringify(userData) +
+          this.logSuccess('Saving user ' + JSON.stringify(userData) +
             ' successful!!');
         }.bind(this)).error(function() {
         //this.userList = [];
-        console.log('Error saving user ' + JSON.stringify(userData) +
+        this.logError('Error saving user ' + JSON.stringify(userData) +
           ' ...');
       }.bind(this));
     } else {
@@ -74,11 +85,11 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
       this.$http(req2).success(
         function() {
           //this.userList = data.users;
-          console.log('Updating user ' + JSON.stringify(userData) +
+          this.logSuccess('Updating user ' + JSON.stringify(userData) +
             ' successful!!');
         }.bind(this)).error(function() {
         //this.userList = [];
-        console.log('Error updating user ' + JSON.stringify(
+        this.logError('Error updating user ' + JSON.stringify(
           userData) + ' ...');
       }.bind(this));
     }
@@ -102,11 +113,12 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
           function() {
             //this.userList = data.users;
             this.userList.push(user);
-            console.log('Saving user ' + JSON.stringify(user) +
+            this.logSuccess('Saving user ' + JSON.stringify(user) +
               ' successful!!');
           }.bind(this)).error(function() {
           //this.userList = [];
-          console.log('Error saving user ' + JSON.stringify(user) +
+          this.logError('Error saving user ' + JSON.stringify(
+              user) +
             ' ...');
         }.bind(this));
       } else {
@@ -122,11 +134,11 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
         this.$http(req2).success(
           function() {
             //this.userList = data.users;
-            console.log('Updating user ' + JSON.stringify(user) +
+            this.logSuccess('Updating user ' + JSON.stringify(user) +
               ' successful!!');
           }.bind(this)).error(function() {
           //this.userList = [];
-          console.log('Error updating user ' + JSON.stringify(
+          this.logError('Error updating user ' + JSON.stringify(
             user) + ' ...');
         }.bind(this));
       }
@@ -145,15 +157,6 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
   factory.delete = function(userId) {
     var user = this.findLocallyById(userId);
     if (user && !!user.id) {
-      // var req3 = {
-      //   method: 'DELETE',
-      //   url: this.url + '/' + user.id,
-      //   headers: {
-      //     'Accept': 'application/json',
-      //     'Content-Type': 'application/json'
-      //   },
-      //   data: JSON.stringify(user)
-      // };
       this.$http.delete(this.url + '/' + user.id).success(
         function() {
           this.userList = this.userList.filter(function(
@@ -161,11 +164,10 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
             return userData.id !== userId;
           });
           this.load();
-          console.log('Deleting user ' + JSON.stringify(user) +
+          this.logSuccess('Deleting user ' + JSON.stringify(user) +
             ' successful!!');
         }.bind(this)).error(function() {
-        //this.userList = [];
-        console.log('Error deleting user ' + JSON.stringify(
+        this.logError('Error deleting user ' + JSON.stringify(
           user) + ' ...');
       }.bind(this));
     } else if (user) {

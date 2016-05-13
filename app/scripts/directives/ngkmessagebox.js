@@ -5,6 +5,8 @@
  * @name angularspaApp.directive:ngMessageBox
  * @description
  * # ngMessageBox
+ * Message Box is a transcluded directive that inherit from the parent controller activation flags for the messages by message id
+ * This directive has a sub drective that is the message tab element that display the message.
  */
 angular.module('angularspaApp')
   .directive('ngkMessageBox', ['$interval', function($interval) {

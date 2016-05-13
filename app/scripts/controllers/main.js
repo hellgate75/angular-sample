@@ -5,7 +5,8 @@
  * @name angularspaApp.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the angularspaApp
+ * Controller that provide the user interface the main features exposer by the Users controller. It provide in the scope
+ * functions and variable used by other elements : directives and components.
  */
 
 angular.module('angularspaApp').controller(
@@ -18,7 +19,7 @@ angular.module('angularspaApp').controller(
         'errorMessage': false
       };
       $scope.messageActivationFlags = [false, false, false];
-      this.userData = {
+      $scope.userData = {
         'id': 0,
         'name': '',
         'surname': '',
@@ -39,13 +40,13 @@ angular.module('angularspaApp').controller(
           $scope.messageActivationFlags = current;
         }
       };
-      this.reset = function() {
-        this.userData.id = 0;
-        this.userData.name = '';
-        this.userData.surname = '';
-        this.userData.address = '';
-        this.userData.mobile = '';
-        this.userData.email = '';
+      $scope.reset = function() {
+        $scope.userData.id = 0;
+        $scope.userData.name = '';
+        $scope.userData.surname = '';
+        $scope.userData.address = '';
+        $scope.userData.mobile = '';
+        $scope.userData.email = '';
       };
       $scope.resetSearch = this.resetSearch = function() {
         $scope.searchText = '';
@@ -57,13 +58,13 @@ angular.module('angularspaApp').controller(
         Users.reload();
       };
       this.setData = function(data) {
-        this.userData = data;
+        $scope.userData = data;
       };
       this.showMessages = function() {
         return $scope.messageActivation.savedMessage || $scope.messageActivation
           .removedMessage || $scope.messageActivation.errorMessage;
       };
-      this.add = function() {
+      $scope.add = function() {
         Users.add(JSON.parse(JSON.stringify(this.userData)));
         this.reset();
         $scope.messageActivation.savedMessage = true;
