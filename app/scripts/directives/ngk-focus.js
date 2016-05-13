@@ -10,7 +10,7 @@
 angular.module('angularspaApp')
   .directive('ngkFocus', function() {
     return {
-      link: function postLink(scope, element, attrs, controller) {
+      link: function postLink(scope, element) {
         element.focus();
       }
     };
