@@ -18,7 +18,8 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
   factory.userList = [];
   factory.lastId = 0;
   factory.url = 'http://localhost:9995/users';
-  factory.load = function() {
+  factory.load = function($scope) {
+    this.$scope = $scope;
     this.$http.get(this.url).success(function(data) {
       this.userList = data;
       if (!this.userList.length) {
@@ -39,6 +40,10 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
     }.bind(this)).error(function() {
       this.userList = [];
       this.logError('Error loading the json list ...');
+      if (this.$scope && typeof this.$scope.showLoadingError ===
+        'function') {
+        this.$scope.showLoadingError();
+      }
     }.bind(this));
   };
   factory.logError = function() {

@@ -21,8 +21,8 @@ angular.module('angularspaApp')
     factoryObj.list = function() {
       return dataService.userList;
     };
-    factoryObj.reload = function() {
-      dataService.load();
+    factoryObj.reload = function($scope) {
+      dataService.load($scope);
     };
     factoryObj.add = function(userData, $scope) {
       dataService.save(JSON.parse(JSON.stringify(userData)), $scope);

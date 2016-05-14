@@ -64,7 +64,7 @@ angular.module('angularspaApp').controller(
         return Users.list();
       };
       $scope.reload = this.reload = function() {
-        Users.reload();
+        Users.reload($scope);
       };
       this.setData = function(data) {
         $scope.userData = data;
