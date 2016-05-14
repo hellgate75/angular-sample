@@ -15,9 +15,9 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:git@github.com:hellgate75/angularspa.git</connection>
-    <developerConnection>scm:git:git@github.com:hellgate75/angularspa.git</developerConnection>
-    <url>git@github.com:hellgate75/angularspa.git.git</url>
+    <connection>scm:git:git@github.com:hellgate75/angular-sample.git</connection>
+    <developerConnection>scm:git:git@github.com:hellgate75/angular-sample.git</developerConnection>
+    <url>git@github.com:hellgate75/angular-sample.git</url>
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
