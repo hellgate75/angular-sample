@@ -47,8 +47,10 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
   factory.logSuccess = function() {
     //TODO: introduce the success handling to advice the UI
   };
-  factory.save = function(userData) {
+  factory.save = function(userData, $scope) {
     this.saving = true;
+    this.$scope = $scope;
+    $scope.startLoadingAnimation();
     if (!userData.id) {
       userData.id = (++this.lastId);
       var req1 = {
@@ -67,10 +69,12 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
           this.load();
           this.logSuccess('Saving user ' + JSON.stringify(userData) +
             ' successful!!');
+          this.$scope.showLoadingSuccess();
         }.bind(this)).error(function() {
         //this.userList = [];
         this.logError('Error saving user ' + JSON.stringify(userData) +
           ' ...');
+        this.$scope.showLoadingError();
       }.bind(this));
     } else {
       var req2 = {
@@ -87,16 +91,20 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
           //this.userList = data.users;
           this.logSuccess('Updating user ' + JSON.stringify(userData) +
             ' successful!!');
+          this.$scope.showLoadingSuccess();
         }.bind(this)).error(function() {
         //this.userList = [];
         this.logError('Error updating user ' + JSON.stringify(
           userData) + ' ...');
+        this.$scope.showLoadingError();
       }.bind(this));
     }
     this.saving = false;
   };
-  factory.saveAll = function() {
+  factory.saveAll = function($scope) {
     this.saving = true;
+    this.$scope = $scope;
+    $scope.startLoadingAnimation();
     this.userList.forEach(function(user) {
       if (!user.id) {
         user.id = (++this.lastId);
@@ -115,11 +123,13 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
             this.userList.push(user);
             this.logSuccess('Saving user ' + JSON.stringify(user) +
               ' successful!!');
+            this.$scope.showLoadingSuccess();
           }.bind(this)).error(function() {
           //this.userList = [];
           this.logError('Error saving user ' + JSON.stringify(
               user) +
             ' ...');
+          this.$scope.showLoadingError();
         }.bind(this));
       } else {
         var req2 = {
@@ -136,10 +146,12 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
             //this.userList = data.users;
             this.logSuccess('Updating user ' + JSON.stringify(user) +
               ' successful!!');
+            this.$scope.showLoadingSuccess();
           }.bind(this)).error(function() {
           //this.userList = [];
           this.logError('Error updating user ' + JSON.stringify(
             user) + ' ...');
+          this.$scope.showLoadingError();
         }.bind(this));
       }
     }.bind(this));
@@ -154,8 +166,10 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
     }
     return null;
   };
-  factory.delete = function(userId) {
+  factory.delete = function(userId, $scope) {
     var user = this.findLocallyById(userId);
+    this.$scope = $scope;
+    $scope.startLoadingAnimation();
     if (user && !!user.id) {
       this.$http.delete(this.url + '/' + user.id).success(
         function() {
@@ -166,9 +180,11 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
           this.load();
           this.logSuccess('Deleting user ' + JSON.stringify(user) +
             ' successful!!');
+          this.$scope.showLoadingSuccess();
         }.bind(this)).error(function() {
         this.logError('Error deleting user ' + JSON.stringify(
           user) + ' ...');
+        this.$scope.showLoadingError();
       }.bind(this));
     } else if (user) {
       var index = this.userList.indexOf(user);
@@ -177,6 +193,5 @@ angular.module('angularspaApp').factory('jsonDataService', function($http) {
       }
     }
   };
-  factory.load();
   return factory;
 });

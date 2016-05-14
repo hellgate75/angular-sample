@@ -13,12 +13,21 @@ angular.module('angularspaApp').controller(
   'MainCtrl', ['$scope', 'Users',
     function($scope, Users) {
       $scope.searchText = '';
+      $scope.animationVisible = false;
+      $scope.animationSuccess = false;
+      $scope.animationError = false;
+      $scope.animationDefaultText = 'Operation in progress ...';
+      $scope.animationSuccessText = 'Operation successful!!';
+      $scope.animationErrorText = 'Operation failure!!';
       $scope.messageActivation = {
         'savedMessage': false,
         'removedMessage': false,
         'errorMessage': false
       };
       $scope.messageActivationFlags = [false, false, false];
+      $scope.init = function() {
+        $scope.reload();
+      };
       $scope.userData = {
         'id': 0,
         'name': '',
@@ -65,15 +74,17 @@ angular.module('angularspaApp').controller(
           .removedMessage || $scope.messageActivation.errorMessage;
       };
       $scope.add = function() {
-        Users.add(JSON.parse(JSON.stringify(this.userData)));
+        Users.add(JSON.parse(JSON.stringify(this.userData)), $scope);
         this.reset();
         $scope.messageActivation.savedMessage = true;
         $scope.updateFlags();
       };
       $scope.remove = this.remove = function(index) {
-        Users.remove(index);
+        Users.remove(index, $scope);
         $scope.messageActivation.removedMessage = true;
         $scope.updateFlags();
+        //NOTE: You can simulate the error uncommenting the following one.
+        // $scope.showLoadingError();
       };
     }
   ]);

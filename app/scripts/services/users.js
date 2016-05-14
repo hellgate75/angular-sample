@@ -24,11 +24,11 @@ angular.module('angularspaApp')
     factoryObj.reload = function() {
       dataService.load();
     };
-    factoryObj.add = function(userData) {
-      dataService.save(JSON.parse(JSON.stringify(userData)));
+    factoryObj.add = function(userData, $scope) {
+      dataService.save(JSON.parse(JSON.stringify(userData)), $scope);
     };
-    factoryObj.remove = function(id) {
-      dataService.delete(id);
+    factoryObj.remove = function(id, $scope) {
+      dataService.delete(id, $scope);
     };
     return factoryObj;
   }]);
