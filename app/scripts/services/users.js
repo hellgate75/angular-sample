@@ -9,8 +9,8 @@
  * list, reload, add/update, remove users into or from the JSON Server
  * No error handling yet implemented.
  */
-angular.module('angularspaApp')
-  .factory('Users', ['jsonDataService', function(dataService) {
+angular.module('angularspaApp').config(['$provide', function($provide) {
+  $provide.factory('Users', ['jsonDataService', function(dataService) {
     // private logic
 
     var privateUserList = [];
@@ -25,10 +25,12 @@ angular.module('angularspaApp')
       dataService.load($scope);
     };
     factoryObj.add = function(userData, $scope) {
-      dataService.save(JSON.parse(JSON.stringify(userData)), $scope);
+      dataService.save(JSON.parse(JSON.stringify(userData)),
+        $scope);
     };
     factoryObj.remove = function(id, $scope) {
       dataService.delete(id, $scope);
     };
     return factoryObj;
   }]);
+}]);

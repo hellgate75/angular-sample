@@ -73,9 +73,9 @@ angular.module('angularspaApp').controller(
         return $scope.messageActivation.savedMessage || $scope.messageActivation
           .removedMessage || $scope.messageActivation.errorMessage;
       };
-      $scope.add = function() {
-        Users.add(JSON.parse(JSON.stringify(this.userData)), $scope);
-        this.reset();
+      $scope.add = this.add = function() {
+        Users.add(JSON.parse(JSON.stringify($scope.userData)), $scope);
+        $scope.reset();
         $scope.messageActivation.savedMessage = true;
         $scope.updateFlags();
       };

@@ -19,6 +19,7 @@ module.exports = function(grunt) {
     cdnify: 'grunt-google-cdn'
   });
   grunt.loadNpmTasks('grunt-run-grunt');
+  grunt.loadNpmTasks('grunt-parallel');
   // Configurable paths for the application
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
@@ -26,7 +27,6 @@ module.exports = function(grunt) {
     dist: 'build/' + (require('./bower.json').name || 'angularspa'),
     base: 'build'
   };
-
   // Define the configuration for all the tasks
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -387,9 +387,10 @@ module.exports = function(grunt) {
     },
     run_grunt: {
       options: {
-        minimumFiles: 1
+        minimumFiles: 1,
+        concurrent: 2
       },
-      simple_target: {
+      serve_app: {
         options: {
           log: true,
           stack: true,
@@ -400,7 +401,20 @@ module.exports = function(grunt) {
             }
           }
         },
-        src: ['GruntfileJsonServer.js']
+        src: ['GruntFileJsonServer.js']
+      },
+      integration_test: {
+        options: {
+          log: true,
+          stack: true,
+          force: true,
+          process: function(res) {
+            if (res.fail) {
+              grunt.log.writeln("Unable to run Json Server ...");
+            }
+          }
+        },
+        src: ['GruntFileJsonServerIntegration.js']
       }
     },
     // Run some tasks in parallel to speed up the build process
@@ -410,7 +424,7 @@ module.exports = function(grunt) {
       ],
       serve: {
         tasks: [
-          'run_grunt',
+          'run_grunt:serve_app',
           'watch'
         ],
         options: {
@@ -420,13 +434,16 @@ module.exports = function(grunt) {
       test: [
         'copy:styles'
       ],
+      karma: [
+        'karma',
+        //'run_grunt:integration_test'
+      ],
       dist: [
         'copy:styles',
         'imagemin',
         'svgmin'
       ]
     },
-    // Test settings
     karma: {
       unit: {
         configFile: 'test/karma.conf.js',
@@ -466,7 +483,7 @@ module.exports = function(grunt) {
     'concurrent:test',
     'postcss',
     'connect:test',
-    'karma'
+    'concurrent:karma'
   ]);
 
   grunt.registerTask('build', [

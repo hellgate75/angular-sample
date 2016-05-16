@@ -1,6 +1,5 @@
 'use strict';
 
-//require(['../../mock/service-mock']);
 describe('Controller: MainCtrl', function() {
 
   // load the controller's module
@@ -9,71 +8,107 @@ describe('Controller: MainCtrl', function() {
   // beforeEach(module('angularspaMocks'));
   // beforeEach(module('sinon'));
   var MainCtrl,
+    UserCtrl,
     scope,
-    provide;
-  beforeEach(function($provide) {
-    provide = $provide;
-    //alert('provide = ' + provide);
+    provide,
+    originalTimeout;
+  beforeEach(function() {
+    var jsonServiceConfigData = {
+      'protocol': 'http',
+      'hostname': 'localhost',
+      'port': 9996,
+      'jsonService': 'users'
+    };
   });
-  beforeEach(inject(function(_MainCtrl_, $controller, $rootScope) {
+  beforeEach(inject(function($rootScope, $controller) {
     scope = $rootScope.$new();
-    MainCtrl = _MainCtrl_;
-    // MainCtrl = $controller('MainCtrl', {
-    //   $scope: scope,
-    //   Users: provide.get('UsersMock')
-    // });
-  }));
-  /*
-    it('should attach a list of empty elements initially to the scope',
-      function() {
-        alert('MainCtrl = ' + MainCtrl);
-        expect(JSON.stringify(MainCtrl.list().length)).toBe(0);
+    scope.startLoadingAnimation = function() {};
+    scope.showLoadingError = function() {};
+    scope.showLoadingSuccess = function() {};
+    inject(function($injector) {
+      UserCtrl = $injector.get('UsersMock');
+      MainCtrl = $controller('MainCtrl', {
+        $scope: scope,
+        Users: UserCtrl
       });
-    it('should be able to add a new user from the scope', function() {
-      MainCtrl.setData({
-        name: "John",
-        surname: "Smith",
-        address: "18A, O'Connel St., Dublin, D1",
-        mobile: "+8521544785",
-        email: "jonh.smit@aib.ie"
-      });
-      MainCtrl.add();
-      expect(MainCtrl.list().length).toBe(1);
     });
-    it('should be able to remove a new user from the scope', function() {
-      MainCtrl.setData({
-        name: "John",
-        surname: "Smith",
-        address: "18A, O'Connel St., Dublin, D1",
-        mobile: "+8521544785",
-        email: "jonh.smit@aib.ie"
-      });
-      MainCtrl.add();
-      expect(MainCtrl.list().length).toBe(1);
-      MainCtrl.remove(1);
+  }));
+  beforeEach(function() {
+    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
+  });
+  afterEach(function() {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+
+  });
+  it('should attach a list of empty elements initially to the scope',
+    function() {
       expect(MainCtrl.list().length).toBe(0);
     });
-    it('should be able to list all user to the scope', function() {
-      MainCtrl.setData({
-        name: "John",
-        surname: "Smith",
-        address: "18A, O'Connel St., Dublin, D1",
-        mobile: "+8521544785",
-        email: "jonh.smit@aib.ie"
-      });
-      MainCtrl.add();
-      MainCtrl.setData({
-        name: "Mark",
-        surname: "O'Connel",
-        address: "22, Parnel St., Dublin, D1",
-        mobile: "+8521544785",
-        email: "mark.oconnel@yahoo.ie"
-      });
-      MainCtrl.add();
-      expect(MainCtrl.list().length).toBe(2);
-      expect(JSON.stringify(MainCtrl.list())).toBe(
-        "[{\"name\":\"John\",\"surname\":\"Smith\",\"address\":\"18A, O'Connel St., Dublin, D1\",\"mobile\":\"+8521544785\",\"email\":\"jonh.smit@aib.ie\"},{\"name\":\"Mark\",\"surname\":\"O'Connel\",\"address\":\"22, Parnel St., Dublin, D1\",\"mobile\":\"+8521544785\",\"email\:\"mark.oconnel@yahoo.ie\"}]"
-      );
+  it('should be able to add a new user from the scope', function() {
+    MainCtrl.setData({
+      name: "John",
+      surname: "Smith",
+      address: "18A, O'Connel St., Dublin, D1",
+      mobile: "+8521544785",
+      email: "jonh.smit@aib.ie"
     });
-    */
+    MainCtrl.add();
+    MainCtrl.reload();
+    expect(MainCtrl.list().length).toBe(1);
+  });
+  it('should be able to remove a user from the scope', function() {
+    MainCtrl.setData({
+      name: "John",
+      surname: "Smith",
+      address: "18A, O'Connel St., Dublin, D1",
+      mobile: "+8521544785",
+      email: "jonh.smit@aib.ie"
+    });
+    MainCtrl.remove(1);
+    MainCtrl.reload();
+    expect(MainCtrl.list().length).toBe(0);
+  });
+  it('should be able to remove a new user from the scope', function() {
+    MainCtrl.setData({
+      name: "John",
+      surname: "Smith",
+      address: "18A, O'Connel St., Dublin, D1",
+      mobile: "+8521544785",
+      email: "jonh.smit@aib.ie"
+    });
+    MainCtrl.add();
+    MainCtrl.reload();
+    expect(MainCtrl.list().length).toBe(1);
+    MainCtrl.remove(1);
+    MainCtrl.reload();
+    expect(MainCtrl.list().length).toBe(0);
+  });
+  it('should be able to list all user to the scope', function() {
+    MainCtrl.setData({
+      name: "John",
+      surname: "Smith",
+      address: "18A, O'Connel St., Dublin, D1",
+      mobile: "+8521544785",
+      email: "jonh.smit@aib.ie"
+    });
+    MainCtrl.add();
+    MainCtrl.setData({
+      name: "Mark",
+      surname: "O'Connel",
+      address: "22, Parnel St., Dublin, D1",
+      mobile: "+8521544785",
+      email: "mark.oconnel@yahoo.ie"
+    });
+    MainCtrl.add();
+    MainCtrl.reload();
+    expect(MainCtrl.list().length).toBe(2);
+    expect(JSON.stringify(MainCtrl.list())).toBe(
+      '[{"name":"John","surname":"Smith","address":"18A, O\'Connel St., Dublin, D1","mobile":"+8521544785","email":"jonh.smit@aib.ie","id":1},{"name":"Mark","surname":"O\'Connel","address":"22, Parnel St., Dublin, D1","mobile":"+8521544785","email":"mark.oconnel@yahoo.ie","id":2}]'
+    );
+    MainCtrl.remove(2);
+    MainCtrl.remove(1);
+    MainCtrl.reload();
+    expect(MainCtrl.list().length).toBe(0);
+  });
 });
