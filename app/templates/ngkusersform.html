@@ -1,61 +1,69 @@
 <form name="userAddForm" class="ngkusersform">
-  <table class="form-table">
-    <tr class="form-tr">
-      <td colspan="2" class="form-title">Insert User Data : </td>
-    </tr>
-    <tr class="form-tr">
-      <td class="form-label" style="vertical-align: top; padding-top: 5px;">Name :</td>
-      <td><input name="name" ngk-focus type="text" ng-model="$ctrl.userData.name" required ng-minlength="3" ng-maxlength="40"/>
-      </td><td>
+  <div class="form-table">
+    <div class="form-tr">
+      <div class="form-td-3" class="form-title">Insert User Data : </div>
+    </div>
+    <div class="form-tr">
+      <div class="form-td form-label" style="vertical-align: top; padding-top: 5px;">Name :</div>
+      <div class="form-td"><input name="name" ngk-focus type="text" ng-model="$ctrl.userData.name" required ng-minlength="3" ng-maxlength="40"/>
+      </div>
+      <div class="form-td">
         <span ng-messages="userAddForm.name.$error" role="alert">
           <span class="error-box" ng-message="required">Please enter a value for the name!</span>
           <span class="error-box" ng-message="minlength">Please enter a longer value for the name!</span>
           <span class="error-box" ng-message="maxlength">Please enter a shorter value for the name!</span>
         </span>
-      </td>
-    </tr>
-    <tr class="form-tr">
-      <td class="form-label" style="vertical-align: top; padding-top: 5px;">Surname :</td>
-      <td><input name="surname" type="text" ng-model="$ctrl.userData.surname" required ng-minlength="3" ng-maxlength="25"/>
-      </td><td>
+      </div>
+    </div>
+    <div class="form-tr">
+      <div class="form-td form-label" style="vertical-align: top; padding-top: 5px;">Surname :</div>
+      <div class="form-td"><input name="surname" type="text" ng-model="$ctrl.userData.surname" required ng-minlength="3" ng-maxlength="25"/>
+      </div>
+      <div class="form-td">
         <span ng-messages="userAddForm.surname.$error" role="alert">
           <span class="error-box" ng-message="required">Please enter a value for the surname!</span>
           <span class="error-box" ng-message="minlength">Please enter a longer value for the surname!</span>
           <span class="error-box" ng-message="maxlength">Please enter a shorter value for the surname!</span>
         </span>
-      </td>
-    </tr>
-    <tr class="form-tr">
-      <td class="form-label" style="vertical-align: top; padding-top: 5px;">Address :</td>
-      <td><input name="address" type="text" ng-model="$ctrl.userData.address"/>
-      </td><td>
-      </td>
-    </tr>
-    <tr class="form-tr">
-      <td class="form-label" style="vertical-align: top; padding-top: 5px;">Mobile :</td>
-      <td><input name="mobile" type="text" ng-model="$ctrl.userData.mobile" ng-pattern="/^(\+[\d]{1,5}|0)?[7-9]\d{7,11}$/" />
-      </td><td>
+      </div>
+    </div>
+    <div class="form-tr">
+      <div class="form-td form-label" style="vertical-align: top; padding-top: 5px;">Address :</div>
+      <div class="form-td"><input name="address" type="text" ng-model="$ctrl.userData.address"/>
+      </div>
+      <div class="form-td">
+      </div>
+    </div>
+    <div class="form-tr">
+      <div class="form-td form-label" style="vertical-align: top; padding-top: 5px;">Mobile :</div>
+      <div class="form-td"><input name="mobile" type="text" ng-model="$ctrl.userData.mobile" ng-pattern="/^(\+[\d]{1,5}|0)?[7-9]\d{7,11}$/" />
+      </div>
+      <div class="form-td">
         <span ng-messages="userAddForm.mobile.$error" role="alert">
           <span class="error-box" ng-message="pattern">Please enter a value for the mobile!</span>
         </span>
-      </td>
-    </tr>
-    <tr class="form-tr">
-      <td class="form-label" style="vertical-align: top; padding-top: 5px;">Email :</td>
-      <td><input name="email" type="text" ng-model="$ctrl.userData.email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" required/>
-      </td><td>
+      </div>
+    </div>
+    <div class="form-tr">
+      <div class="form-td form-label" style="vertical-align: top; padding-top: 5px;">Email :</div>
+      <div class="form-td"><input name="email" type="text" ng-model="$ctrl.userData.email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" required/>
+      </div>
+      <div class="form-td">
         <span ng-messages="userAddForm.email.$error" role="alert">
           <span class="error-box" ng-message="pattern">Please enter a valid email address!</span>
           <span class="error-box" ng-message="required">Please enter a value for the email address!</span>
         </span>
-      </td>
-    </tr>
-    <tr class="form-tr form-button-tr">
-      <td colspan="2" style="text-align: center;">
-        <button ng-click="reset()">reset</button>&nbsp;
+      </div>
+    </div>
+    <div class="form-tr form-button-tr">
+      <div class="form-td" style="text-align: center;">
+      </div>
+      <div class="form-td button-bar" style="text-align: center;">
+        <button  ng-click="reset()">reset</button>&nbsp;
         <button ng-click="add()" ng-disabled="!userAddForm.$valid">add user</button><br/>
-      </td><td>
-      </td>
-    </tr>
-  </table>
+      </div>
+      <div class="form-td">
+      </div>
+    </div>
+  </div>
 </form>

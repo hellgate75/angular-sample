@@ -1,22 +1,31 @@
 /* Validation Errors */
+.form-table {
+  width: 90%;
+  margin-left: 5%;
+  border: 0px;
+}
 .error-box {
+  margin-top: 3px;
+  font-size: 85%;
   border-radius: 5px;
   background-color: red !important;
   color: #FFFFFF;
   padding: 5px;
-  margin-left: 7px;
+  margin-left: 0px;
   position: relative;
   float: right;
-  width: 306px;
-  top: -2px;
+  width: 100%;
+  min-width: 250px;
+  text-align: left;
   padding-bottom: 8px;
+  left: 5px;
 }
 .error-box:after {
   content: "";
   display: block;
   width: 0;
   height: 0;
-  margin-top: -17px;
+  margin-top: -15px;
   border-top: 7px solid transparent;
   border-bottom: 7px solid transparent;
   border-right: 10px solid red;
@@ -27,58 +36,140 @@
 .error-box.error-supplier {
   margin-bottom: 0px;
 }
-input {
-  border-radius: 5px;
+.form-td > input {
+  width: 100%;
+  border-radius: 5px !important;
 }
-input.warning, input.ng-invalid-pattern, input.ng-invalid-required {
+.form-td > input.warning, .form-td > input.ng-invalid-pattern, .form-td > input.ng-invalid-required {
   border-color: red;
   min-height: 0px;
   border-radius: 5px;
 }
-button:disabled {
+.form-td button:disabled {
   opacity: 0.60 !important;
 }
-tr.form-tr {
+.form-table div.form-tr {
   min-height:35px;
   max-height:35px;
   height: 35px;
 }
 .form-title {
+  width: 100%;
+  text-align: center;
   font-weight: bold;
   font-size: 20px;
   text-transform: uppercase;
   text-decoration: underline;
+  padding-bottom: 10px;
 }
-.form-label {
+.form-table .form-label {
   padding-right: 10px;
   font-weight: bold;
 }
 
-/* list table classes */
-table.mytable {
+.form-table .form-tr {
   width: 100%;
-  border: 0px;
+  display: inline-flex;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
-table.mytable > tr {
+
+.form-table .form-td, .form-table .form-td-form-label {
+  width: 33%;
+  display: inline-flex;
+}
+.form-table .form-td-2 {
+  width: 66%;
+  display: inline-flex;
+}
+.form-table .form-td-3 {
+  width: 100%;
+  display: inline-flex;
+}
+.form-td.button-bar {
+  padding-left: 0%;
+}
+.form-td.button-bar button {
+  min-width: 50%;
+  max-width: 50%;
+}
+/* list table classes */
+div.mytable > .form-tr {
   width: 100%;
   border: 0px;
   margin-bottom: 300px;
 }
-table.mytable > td {
-  width: 16%;
+div.mytable > .form-td {
+  width: 33%;
   border: 0px;
   text-align: left;
 }
-tr.table-header {
+div.form-tr.table-header {
   background-color: rgba(144, 140, 140, 0.18) !important;
   border-bottom: 1px solid rgba(144, 140, 140, 0.4) !important;
 }
-table.mytable > th {
+table.mytable > .form-th {
   width: 16%;
   border: 0px;
   text-align: left;
   font-weight: bold;
 }
-tr.hilighted {
+tr.hilighted, form-tr.hilighted {
   background-color: rgba(144, 140, 140, 0.18) !important;
+}
+@media screen and (min-width: 320px) and (max-width: 359px) {
+  .error-box {
+    font-size: 55%;
+    margin-left: 0px;
+    max-width: 250px;
+  }
+  .error-box:after {
+    margin-top: -10px;
+  }
+  table, tbody, tr {
+    max-width: 359px!important;
+    min-width: 320px!important;
+  }
+  td {
+    font-size: 55%;
+  }
+  th {
+    font-size: 55%;
+  }
+  .form-td.button-bar button {
+    font-size: 80%;
+  }
+}
+@media screen and (min-width: 360px) and (max-width: 400px) {
+  .error-box {
+    margin-top: 0px;
+    padding-bottom: 10px;
+    font-size: 55%;
+    max-width: 100px;
+    left: 90px;
+    width: 100px!important;
+    padding-right: 160px;
+  }
+  .error-box:after {
+    margin-top: -18px;
+  }
+  table, tbody, tr {
+    min-width: 360px!important;
+    max-width: 400px!important;
+  }
+  td {
+    font-size: 55%;
+  }
+  th {
+    font-size: 55%;
+  }
+  .form-td.button-bar button {
+    font-size: 80%;
+  }
+}
+@media screen and (min-width: 401px) {
+  table, tbody, tr {
+    min-width: 100%!important;
+    max-width: 100%!important;
+  }
 }

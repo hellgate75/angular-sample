@@ -32,7 +32,9 @@ angular.module('angularspaApp').config(['$provide',
           .jsonService;
       };
       factory.load = function($scope) {
-        this.$scope = $scope;
+        if ($scope) {
+          this.$scope = $scope;
+        }
         this.$http.get(this.url()).success(function(data) {
           this.userList = data;
           if (!this.userList.length) {
