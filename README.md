@@ -6,6 +6,11 @@ An init and build script are provided with the source.
 This project is generated with [yo angular generator] (https://github.com/yeoman/generator-angular)
 version 0.15.1.
 
+## Pre-Requisites
+
+This application requires : NPM, Bower and NODE.js.
+
+Please run the `NODE and NPM` maven install and the `pre-build` process to setup environment or simply install npm and bower (`npm install` & `bower install`)
 
 ## Build & Export
 
