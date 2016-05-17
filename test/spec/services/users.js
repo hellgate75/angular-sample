@@ -8,8 +8,7 @@ describe('Service: Users', function() {
   // instantiate service
   var Users,
     serviceMock,
-    injector,
-    $provide;
+    injector;
   beforeEach(module('angularspaApp', function($provide) {
     $provide.factory('jsonDataService', function() {
       return serviceMock;

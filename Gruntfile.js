@@ -131,14 +131,17 @@ module.exports = function(grunt) {
       all: {
         src: [
           //'Gruntfile.js',
-          '<%= appConfig.app %>/scripts/{,*/}*.js'
+          '<%= appConfig.app %>/scripts/{,*/}*.js',
+          '!<%= appConfig.app %>/scripts/services/jsondataservice.js',
         ]
       },
       test: {
         options: {
           jshintrc: 'test/.jshintrc'
         },
-        src: ['test/spec/{,*/}*.js']
+        src: [
+          'test/spec/{,*/}*.js',
+        ]
       }
     },
 
@@ -156,7 +159,12 @@ module.exports = function(grunt) {
         ]
       },
       test: {
-        src: ['test/spec/{,*/}*.js']
+        src: [
+          'test/spec/{,*/}*.js',
+          '!test/spec/service/users.js',
+          '!test/spec/service/jsondataservice.js',
+          '!test/spec/controllers/main.js',
+        ]
       }
     },
 

@@ -9,17 +9,7 @@ describe('Controller: MainCtrl', function() {
   // beforeEach(module('sinon'));
   var MainCtrl,
     UserCtrl,
-    scope,
-    provide,
-    originalTimeout;
-  beforeEach(function() {
-    var jsonServiceConfigData = {
-      'protocol': 'http',
-      'hostname': 'localhost',
-      'port': 9996,
-      'jsonService': 'users'
-    };
-  });
+    scope;
   beforeEach(inject(function($rootScope, $controller) {
     scope = $rootScope.$new();
     scope.startLoadingAnimation = function() {};
@@ -33,14 +23,6 @@ describe('Controller: MainCtrl', function() {
       });
     });
   }));
-  beforeEach(function() {
-    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
-  });
-  afterEach(function() {
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
-
-  });
   it('should attach a list of empty elements initially to the scope',
     function() {
       expect(MainCtrl.list().length).toBe(0);
