@@ -10,7 +10,7 @@ version 0.15.1.
 
 This application requires : NPM, Bower and NODE.js.
 
-Please run the `NODE and NPM` maven install and the `pre-build` process to setup environment or simply install npm and bower (`npm install` & `bower install`)
+Please run the `NODE and NPM` maven install (`install-platform`) and the `pre-build` process to setup environment or simply install npm and bower (`npm install` & `bower install`)
 
 ## Build & Export
 
